@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "server": "nodemon index.js"
+    "server": "nodemon index.js",
+    "latest": "knex migrate:latest",
+    "rollback": "knex migrate:rollack"
   },
   "repository": {
     "type": "git",
@@ -31,6 +33,7 @@
     "helmet": "^4.4.1",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.4",
+    "pg": "^8.5.1",
     "sqlite3": "^5.0.2"
   }
 }
