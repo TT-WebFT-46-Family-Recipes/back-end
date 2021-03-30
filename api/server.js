@@ -1,32 +1,31 @@
+// YOU DO NOT NEED TO TOUCH ANYMORE
+
+// DEPENDENCIES -------->>>
 const express = require("express");
-const server = express();
+const helmet = require("helmet");
 const cors = require("cors");
+// const { restricted } = require("./middleware/restricted");
 
-const AuthRouter = require("./auth/auth-router");
-const RecipesRouter = require("./recipes/recipes-router");
+const server = express();
 
+// ROUTERS ---------->>>
+const authRouter = require("./auth/auth-router");
+// const usersRouter = require("./users/users-router");
+// const recipesRouter = require("./recipes/recipes-router");
+
+// MIDDLEWARE -------->>>
 server.use(express.json());
-server.use("/api/auth", AuthRouter);
-server.use("/api/recipes", RecipesRouter);
+server.use(helmet());
+server.use(cors());
 
-// check to see what envrironment you are currently in
-console.log(process.env.NODE_ENV);
+// CONNECT ROUTER TO SERVER --------->>>
+server.use("/api/auth", authRouter);
+// server.use("/api/recipes", restricted, recipesRouter);
+// server.use("/api/users", restricted, usersRouter);
 
-// on Heroku machine, an env variable is called "NODE_ENV" -> "production"
-if (process.env.NODE_ENV === "development") {
-  server.use(cors());
-}
-
-// Our API comes earlier in the pipeline -> Test endpoint
-server.get("/api/hello", (req, res) => {
-  res.json({ message: "Hey there!" });
+// IS IT WORKING?
+server.get("/", (req, res) => {
+  res.status(200).json({ message: "Hey there!" });
 });
 
-// ERROR MIDDLEWARE
-server.use((err, req, res, next) => {
-  res.status(500).json({
-    message: err.message, // DEVELOPMENT ONLY
-    stack: err.stack, // DEVELOPMENT ONLY
-    custom: "something went terrible in general", // FOR PRODUCTION
-  });
-});
+module.exports = server;

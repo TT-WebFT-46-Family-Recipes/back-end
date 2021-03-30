@@ -1,3 +1,4 @@
+// YOU DO NOT NEED TO TOUCH ANYMORE
 require("dotenv").config();
 
 const server = require("./api/server");
@@ -5,5 +6,5 @@ const server = require("./api/server");
 const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => {
-  console.log(`*** Listening on ${PORT} ***`);
+  console.log("listening on " + PORT);
 });
