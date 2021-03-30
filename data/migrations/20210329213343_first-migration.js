@@ -42,6 +42,14 @@ exports.up = function (knex) {
         .inTable('categories')
         .onUpdate('RESTRICT')
         .onDelete('RESTRICT');
+      tbl
+        .integer('user_id')
+        .unsigned()
+        .motNullable()
+        .references('user_id')
+        .inTable('users')
+        .onUpdate('RESTRICT')
+        .onDelete('RESTRICT');
     });
 };
 
