@@ -4,11 +4,21 @@
   "description": "# Full Stack App Heroku",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "server": "nodemon index.js",
-    "latest": "knex migrate:latest",
-    "rollback": "knex migrate:rollack"
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback",
+    "seed": "knex seed:run",
+    "migrateh": "heroku run knex migrate:latest -a tt-webft-46-family-recipes",
+    "rollbackh": "heroku run knex migrate:rollback -a tt-webft-46-family-recipes",
+    "databaseh": "heroku pg:psql -a tt-webft-46-family-recipes",
+    "seedh": "heroku run knex seed:run -a tt-webft-46-family-recipes",
+    "test": "jest",
+    "deploy": "git push heroku main"
+  },
+  "engines": {
+    "node": "14.16.0",
+    "npm": "6.14.11"
   },
   "repository": {
     "type": "git",
@@ -22,8 +32,12 @@
   },
   "homepage": "https://github.com/TT-WebFT-46-Family-Recipes/back-end#readme",
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "^7.23.0",
-    "nodemon": "^2.0.7"
+    "jest": "^26.6.3",
+    "jwt-decode": "^3.1.2",
+    "nodemon": "^2.0.7",
+    "supertest": "^6.1.3"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -33,7 +47,7 @@
     "helmet": "^4.4.1",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.4",
-    "pg": "^8.5.1",
-    "sqlite3": "^5.0.2"
+    "knex-cleaner": "^1.3.1",
+    "pg": "^8.5.1"
   }
 }
