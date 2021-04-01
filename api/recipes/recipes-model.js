@@ -33,5 +33,4 @@ module.exports = {
   add,
   update,
   remove,
-  getRecipesIngredients,
 };
