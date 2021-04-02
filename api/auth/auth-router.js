@@ -39,13 +39,15 @@ router.post(
 );
 
 router.post("/login", checkValidUser, async (req, res, next) => {
-  const { username, password } = req.body;
+  const { user_id, username, password } = req.body;
 
   try {
     const user = await db("users").where("username", username).first();
     if (user && bcryptjs.compareSync(password, user.password)) {
       const token = buildToken(user);
-      res.status(200).json({ message: `Good to see you ${username}!`, token });
+      res
+        .status(200)
+        .json({ message: `Good to see you ${username}!`, token, user_id });
     } else {
       res.status(401).json({ message: "Username or password is incorrect" });
     }
